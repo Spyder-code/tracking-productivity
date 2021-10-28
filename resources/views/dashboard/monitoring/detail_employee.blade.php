@@ -4,7 +4,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.10.1/viewer.css" integrity="sha512-Dlf3op7L5ECYeoL6o80A2cqm4F2nLvvK4aH84DxCT690quyOZI8Z0CxVG9PQF3JHmD/aBFqN/W/8SYt7xKLi2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
 @section('content')
-    <div class="card">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <canvas id="chartp" width="200" height="200"></canvas>
+                </div>
+                <div class="col">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <strong>Total Working Time:</strong>
+                            <p>{{ $task->total_time}}</p>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Productivity is:</strong>
+                            <div class="alert alert-success">
+                                <strong>Productive</strong>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mt-5">
         <div class="card-header bg-success text-white">{{ date('d F Y', strtotime($date)) }}</div>
         <div class="card-body">
             <div class="row">
@@ -83,6 +106,7 @@
 @endsection
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const viewer = new Viewer(document.getElementById('image'), {
             inline: true,
@@ -94,6 +118,30 @@
         $('#date').change(function (e) {
             var val = $(this).val();
             $('#link').attr('href',val);
+        });
+
+        const chart = document.getElementById('chartp');
+        const data = {
+            labels: [
+                'Unproductive',
+                'Productive'
+            ],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [45, 55],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const myChart = new Chart(chart, {
+            type: 'doughnut',
+            data: data,
+            options:{
+                maintainAspectRatio:false
+            }
         });
     </script>
 @endsection

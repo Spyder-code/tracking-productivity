@@ -23,6 +23,10 @@
                         <strong>Description:</strong>
                         <p>{{ $project->description }}</p>
                     </li>
+                    <li class="list-group-item">
+                        <strong>Total Working Time:</strong>
+                        <p>{{ $task->total_time}}</p>
+                    </li>
                 </ul>
             </div>
             <div class="col-12 col-md-8">
@@ -33,7 +37,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Task</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                {{-- <th scope="col">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -41,8 +45,8 @@
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->status==0?'In progress':'complete' }}</td>
-                                <td><button type="button" class="btn btn-primary"> Change Status</button></td>
+                                <td class="alert {{ $item->status==0?'alert-primary':'alert-success' }}">{{ $item->status==0?'In progress':'complete' }}</td>
+                                {{-- <td><button type="button" class="btn btn-primary"> Change Status</button></td> --}}
                             </tr>
                             @endforeach
                         </tbody>

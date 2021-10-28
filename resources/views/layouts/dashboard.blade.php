@@ -92,11 +92,11 @@
                             <i class="menu-arrow"></i>
                         </a>
                     </li>
-                    <li class="nav-item {{ \Request::is('result/*')?'active':'' }}">
+                    {{-- <li class="nav-item {{ \Request::is('result/*')?'active':'' }}">
                         <a href="docs/documentation.html" class="nav-link">
                             <i class="mdi mdi-file-document-box-outline menu-icon"></i>
                             <span class="menu-title">Result</span></a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item {{ \Request::is('setting')?'active':'' }}">
                         <a href="{{ route('project.edit',['project'=>session('project_name')]) }}" class="nav-link">
                             <i class="mdi mdi-settings menu-icon"></i>

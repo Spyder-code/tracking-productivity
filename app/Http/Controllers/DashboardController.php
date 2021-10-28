@@ -24,7 +24,7 @@ class DashboardController extends Controller
         if ($project->count()<=0) {
             $data = null;
         }
-        $project_in_employee = EmployeeProject::all()->whereIn('project_id',$data);
+        $project_in_employee = $project;
         $employee_project = EmployeeProject::all()->where('employee_id',Auth::id())->where('status',1);
         return view('dashboard.working_board.index',compact('project_in_employee','employee_project'));
     }
@@ -73,7 +73,27 @@ class DashboardController extends Controller
     {
         $project_id = session('project_id');
         $data = EmployeeProject::all()->where('project_id',$project_id);
-        return view('dashboard.monitoring.index',compact('data'));
+        $task = Task::join('employee_projects','employee_projects.id','=','tasks.employee_project_id')
+                    ->join('projects','projects.id','=','employee_projects.project_id')
+                    ->where('projects.id',$project_id)
+                    ->select('tasks.*')
+                    ->get();
+        $task_complete = Task::join('employee_projects','employee_projects.id','=','tasks.employee_project_id')
+                    ->join('projects','projects.id','=','employee_projects.project_id')
+                    ->where('projects.id',$project_id)
+                    ->where('tasks.status',1)
+                    ->select('tasks.*')
+                    ->count();
+        $task_uncomplete = Task::join('employee_projects','employee_projects.id','=','tasks.employee_project_id')
+                    ->join('projects','projects.id','=','employee_projects.project_id')
+                    ->where('projects.id',$project_id)
+                    ->where('tasks.status',0)
+                    ->select('tasks.*')
+                    ->count();
+        $task_total = $task->count();
+        $complete = ($task_complete/$task_total) * 100;
+        $uncomplete = ($task_uncomplete/$task_total) * 100;
+        return view('dashboard.monitoring.index',compact('data','task','task_complete','task_uncomplete','complete','uncomplete'));
     }
 
     public function monitoringEmployee(EmployeeProject $task, $date)

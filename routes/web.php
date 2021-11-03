@@ -55,5 +55,8 @@ Route::prefix('admin')->middleware('admin')->group(function(){
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('admin.user');
     Route::get('/room', [App\Http\Controllers\RoomController::class, 'index'])->name('admin.room');
     Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('profile');
+    Route::post('/svm', [App\Http\Controllers\ApplicationController::class, 'svm'])->name('svm');
     Route::resource('/game', App\Http\Controllers\GameController::class);
+    Route::resource('/app', App\Http\Controllers\ApplicationController::class);
+    Route::resource('/category', App\Http\Controllers\CategoryController::class);
 });

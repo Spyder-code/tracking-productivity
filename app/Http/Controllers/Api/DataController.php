@@ -8,12 +8,15 @@ use App\Http\Resources\TaskResource;
 use App\Models\Application;
 use App\Models\Capture;
 use App\Models\EmployeeProject;
+use App\Models\Productivity;
 use App\Models\Task;
 use App\Models\Tracking;
 use App\Models\TrackingApplication;
+use Illuminate\Http\File;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
@@ -141,8 +144,8 @@ class DataController extends Controller
             $app = Application::all()->where('name',$app_name)->first();
             if ($app==null) {
                 $apl = Application::create([
-                    'category_id' => 3,
-                    'application_type_id' => 1,
+                    'category_id' => 15,
+                    'application_type_id' => 3,
                     'name' => $app_name,
                 ]);
                 TrackingApplication::create([
@@ -185,5 +188,35 @@ class DataController extends Controller
             'image' => $path,
         ]);
         return response('success');
+    }
+
+    public function getDataset()
+    {
+        $data = Productivity::all()->where('status',0);
+        return response()
+                ->json($data)
+                ->header('Content-Type','application/json');
+    }
+
+    public function updateDataset()
+    {
+        $output = request()->output;
+        $app_id = request()->app_id;
+        $id = array();
+        $result = array();
+        foreach ($app_id as $item ) {
+            array_push($id,$item);
+        }
+        foreach ($output as $item ) {
+            array_push($result,$item);
+        }
+        for ($i=0; $i < count($id); $i++) {
+            Productivity::find($id[$i])->update([
+                'output' => $result[$i],
+                'status' => 1
+            ]);
+        }
+
+        return response('Success');
     }
 }

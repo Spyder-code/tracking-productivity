@@ -29,6 +29,8 @@ Route::post('tracking-cancel',[App\Http\Controllers\Api\DataController::class,'c
 Route::get('project/{id}',[App\Http\Controllers\Api\DataController::class,'project']);
 Route::get('total-time-today/{id}',[App\Http\Controllers\Api\DataController::class,'getTotalTimeToday']);
 Route::get('task/{id}',[App\Http\Controllers\Api\DataController::class,'task']);
+Route::get('dataset',[App\Http\Controllers\Api\DataController::class,'getDataset']);
+Route::post('update-dataset',[App\Http\Controllers\Api\DataController::class,'updateDataset']);
 Route::post('app-tracking',[App\Http\Controllers\Api\DataController::class,'appTracking']);
 Route::post('capture-tracking',[App\Http\Controllers\Api\DataController::class,'capture']);
 Route::put('task/{task}',[App\Http\Controllers\Api\DataController::class,'taskStatus']);

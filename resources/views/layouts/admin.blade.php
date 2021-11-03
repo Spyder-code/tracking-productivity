@@ -77,7 +77,7 @@
                                     <span class="hide-menu">Dashboard</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item">
+                            {{-- <li class="sidebar-item">
                                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('game.index') }}"
                                     aria-expanded="false">
                                     <i class="fa fa-gamepad" aria-hidden="true"></i>
@@ -96,6 +96,20 @@
                                     aria-expanded="false">
                                     <i class="fa fa-users" aria-hidden="true"></i>
                                     <span class="hide-menu">User List</span>
+                                </a>
+                            </li> --}}
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('category.index') }}"
+                                    aria-expanded="false">
+                                    <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                    <span class="hide-menu">Category Management</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ route('app.index') }}"
+                                    aria-expanded="false">
+                                    <i class="fa fa-list-ol" aria-hidden="true"></i>
+                                    <span class="hide-menu">Application Unregistered</span>
                                 </a>
                             </li>
                             <li class="sidebar-item">
